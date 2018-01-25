@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Wait - Sea Battle</title>
+    <meta http-equiv="refresh" content="5">
 </head>
 <body>
     Please wait other player to join.
