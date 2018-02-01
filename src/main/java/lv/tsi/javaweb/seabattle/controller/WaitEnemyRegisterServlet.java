@@ -10,11 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @author Dimitrijs Fedotovs <a href="http://www.bug.guru">www.bug.guru</a>
- * @version 1.0
- * @since 1.0
- */
 @WebServlet(name = "WaitEnemyRegisterServlet", urlPatterns = "/waitEnemyRegister")
 public class WaitEnemyRegisterServlet extends HttpServlet {
     @Inject
@@ -28,8 +23,7 @@ public class WaitEnemyRegisterServlet extends HttpServlet {
         if (playerGameContext.getGame().isComplete()) {
             response.sendRedirect("shipPlacement");
         } else {
-            request.getRequestDispatcher("/WEB-INF/waitEnemyRegister.jsp")
-                    .include(request, response);
+            request.getRequestDispatcher("/WEB-INF/waitEnemyRegister.jsp").include(request, response);
         }
     }
 }
