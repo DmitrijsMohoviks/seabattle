@@ -5,19 +5,23 @@ public class Game {
     private Player player2;
 
     public boolean isComplete() {
-        return player1 != null && player2 != null; // if both players exists, than return true
+        return player1 != null && player2 != null;
+    }
+
+    public boolean isReadyToStart() {
+        return isComplete() && player1.isReady() && player2.isReady();
     }
 
     public Player getPlayer1() {
         return player1;
     }
 
-    public Player getPlayer2() {
-        return player2;
-    }
-
     public void setPlayer1(Player player1) {
         this.player1 = player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
     }
 
     public void setPlayer2(Player player2) {

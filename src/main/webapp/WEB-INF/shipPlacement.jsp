@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: JavaCourses1
-  Date: 01.02.2018.
-  Time: 19:57
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,8 +6,13 @@
 </head>
 <body>
 
-<form method="post">
+<c:set var="myField" value="${playerGameContext.player.myField}"/>
 
+<c:if test="${myField.invalid}">
+    <h2>Your ships are not placed correctly. Please check and correct.</h2>
+</c:if>
+
+<form method="post">
     <table style="text-align: center">
         <tr>
             <c:forEach var="col" items=" ,A,B,C,D,E,F,G,H,I,J">
@@ -26,18 +24,14 @@
                 <td>${row}</td>
                 <c:forEach var="col" items="A,B,C,D,E,F,G,H,I,J">
                     <td>
-                        <input type="checkbox" name="addr" value="${col}${row}">
-
+                        <c:set var="addr" value="${col}${row}"/>
+                        <input type="checkbox" name="addr" value="${addr}" ${myField.hasShip(addr) ? "checked" : ""}>
                     </td>
-
                 </c:forEach>
             </tr>
         </c:forEach>
-
     </table>
-
-    <input type ="submit" value="Start!">
-
+    <input type="submit" value="Start!">
 </form>
 
 </body>
