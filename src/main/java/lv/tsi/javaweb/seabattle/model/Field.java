@@ -36,4 +36,7 @@ public class Field {
         return invalid;
     }
 
+    public void setCell(String addr, CellContent value) {
+        content.put(addr, value);
+    }
 }
