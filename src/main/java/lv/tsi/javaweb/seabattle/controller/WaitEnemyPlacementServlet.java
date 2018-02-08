@@ -10,16 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "WaitEnemyPlacementServlet", urlPatterns = "/waitEnemyPlacement")
+/**
+ * @author Dimitrijs Fedotovs <a href="http://www.bug.guru">www.bug.guru</a>
+ * @version 1.0
+ * @since 1.0
+ */
+@WebServlet(name = "WaitEnemyPlacementServlet", urlPatterns = "waitEnemyPlacement")
 public class WaitEnemyPlacementServlet extends HttpServlet {
     @Inject
     private PlayerGameContext playerGameContext;
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/waitEnemyPlacement.jsp").include(request, response);
+        if (playerGameContext.getGame().isReadyToStart()) {
+            response.sendRedirect("game");
+        } else {
+            request.getRequestDispatcher("/WEB-INF/waitEnemyPlacement.jsp")
+                    .include(request, response);
+        }
     }
 }

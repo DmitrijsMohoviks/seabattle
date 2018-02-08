@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="main.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,800,900" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
-    <title>Sea Battle</title>
-    <style>
-    </style>
+    <title>Register - Sea Battle</title>
 </head>
 <body>
 <div class="w3-display-container container">
@@ -20,10 +18,10 @@
         </header>
         <div class="w3-container w3-center w3-text-blue w3-padding">
             <p>
-                <i class="fas fa-spinner fa-5x fa-spin"></i>
+                <i class="fas fa-location-arrow fa-5x fa-spin"></i>
             </p>
             <p>
-                <b>Your opponent will join soon!</b>
+                <b>Your opponent is placing his/her ships!</b>
             </p>
         </div>
     </div>
