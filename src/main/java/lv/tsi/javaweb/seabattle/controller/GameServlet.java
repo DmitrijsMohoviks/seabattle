@@ -22,7 +22,9 @@ public class GameServlet extends HttpServlet {
     private PlayerGameContext playerGameContext;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String addr = request.getParameter("addr");
+        playerGameContext.getGame().fire(addr);
+        response.sendRedirect("game");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
