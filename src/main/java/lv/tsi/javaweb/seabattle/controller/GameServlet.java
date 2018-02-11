@@ -24,9 +24,16 @@ public class GameServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Player me = playerGameContext.getPlayer();
         Player current = playerGameContext.getGame().getCurrentPlayer();
+        if (me == current && current.isWinner()) {
+            response.sendRedirect("winner");
+            return;
+        }
         if (me == current) {
             request.getRequestDispatcher("/WEB-INF/fire.jsp")
                     .include(request, response);
+        } else if (current.isWinner()) {
+            response.sendRedirect("looser");
+            return;
         } else {
             request.getRequestDispatcher("/WEB-INF/waitEnemyFire.jsp")
                     .include(request, response);

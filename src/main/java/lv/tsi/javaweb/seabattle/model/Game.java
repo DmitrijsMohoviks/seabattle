@@ -51,7 +51,13 @@ public class Game {
         if (c == CellContent.SHIP) {
             getOppositePlayer().getMyField().setCell(addr, CellContent.HIT);
             getCurrentPlayer().getEnemyField().setCell(addr, CellContent.HIT);
-            return;
+            getCurrentPlayer().addHitCounter();
+            if (getCurrentPlayer().getHitCounter() < 20) {
+                return;
+            } else {
+                getCurrentPlayer().setWinner();
+                return;
+            }
         }
         if (c == CellContent.EMPTY) {
             getOppositePlayer().getMyField().setCell(addr, CellContent.MISS);

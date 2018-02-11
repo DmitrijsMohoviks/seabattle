@@ -5,6 +5,8 @@ public class Player {
     private Field myField = new Field();
     private Field enemyField = new Field();
     private boolean ready;
+    private int hitCounter = 0;
+    private boolean isWinner = false;
 
     public String getName() {
         return name;
@@ -36,5 +38,21 @@ public class Player {
 
     public boolean isReady() {
         return ready;
+    }
+
+    public int getHitCounter() {
+        return hitCounter;
+    }
+
+    public void addHitCounter() {
+        hitCounter = hitCounter + 1;
+    }
+
+    public void setWinner() {
+        isWinner = true;
+    }
+
+    public boolean isWinner() {
+        return isWinner;
     }
 }

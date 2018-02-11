@@ -35,7 +35,7 @@
         }
 
         td.MISS {
-            background-color: aqua;
+            background-color: blue;
         }
     </style>
 </head>
