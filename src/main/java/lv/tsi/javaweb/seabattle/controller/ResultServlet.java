@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "GameServlet", urlPatterns="/game")
+@WebServlet(name = "ResultServlet", urlPatterns="/result")
 public class ResultServlet extends HttpServlet {
     @Inject
     private PlayerGameContext playerGameContext;
@@ -22,9 +22,9 @@ public class ResultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Player me = playerGameContext.getPlayer();
         if (me.isWinner()) {
-            request.getRequestDispatcher("/WEB-INF/winner.jsp");
+            request.getRequestDispatcher("/WEB-INF/winner.jsp").include(request, response);
         } else {
-            request.getRequestDispatcher("/WEB-INF/looser.jsp");
+            request.getRequestDispatcher("/WEB-INF/looser.jsp").include(request, response);
         }
     }
 }
