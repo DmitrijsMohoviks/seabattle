@@ -12,31 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "GameServlet", urlPatterns="/game")
-public class GameServlet extends HttpServlet {
+public class ResultServlet extends HttpServlet {
     @Inject
     private PlayerGameContext playerGameContext;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String addr = request.getParameter("addr");
-        playerGameContext.getGame().fire(addr);
-        if (playerGameContext.getGame().isFinished()) {
-            response.sendRedirect("result");
-        } else {
-            response.sendRedirect("game");
-        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Player me = playerGameContext.getPlayer();
-        Player current = playerGameContext.getGame().getCurrentPlayer();
-        if (playerGameContext.getGame().isFinished()) {
-            response.sendRedirect("result");
-        } else if (me == current) {
-            request.getRequestDispatcher("/WEB-INF/fire.jsp")
-                    .include(request, response);
+        if (me.isWinner()) {
+            request.getRequestDispatcher("/WEB-INF/winner.jsp");
         } else {
-            request.getRequestDispatcher("/WEB-INF/waitEnemyFire.jsp")
-                    .include(request, response);
+            request.getRequestDispatcher("/WEB-INF/looser.jsp");
         }
     }
 }
