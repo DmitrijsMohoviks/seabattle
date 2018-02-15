@@ -1,3 +1,0 @@
-Git is removing empty directories by default.
-This file has been created to prevent disappearing of an empty directory.
-The file can be deleted anytime.

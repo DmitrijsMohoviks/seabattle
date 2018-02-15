@@ -24,13 +24,19 @@ public class GameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String addr = request.getParameter("addr");
         playerGameContext.getGame().fire(addr);
-        response.sendRedirect("game");
+        if (playerGameContext.getGame().isFinished()) {
+            response.sendRedirect("result");
+        } else {
+            response.sendRedirect("game");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Player me = playerGameContext.getPlayer();
         Player current = playerGameContext.getGame().getCurrentPlayer();
-        if (me == current) {
+        if (playerGameContext.getGame().isFinished()) {
+            response.sendRedirect("result");
+        } else if (me == current) {
             request.getRequestDispatcher("/WEB-INF/fire.jsp")
                     .include(request, response);
         } else {
