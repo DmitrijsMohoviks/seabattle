@@ -1,5 +1,7 @@
 package lv.tsi.javaweb.seabattle.model;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -10,6 +12,17 @@ public class PlayerGameContext implements Serializable{
 
     private Player player;
     private Game game;
+
+    @PostConstruct
+    private void created() {
+
+    }
+
+    @PreDestroy
+    private void destroyed() {
+        System.out.println("Session destroyed");
+        game.setCanceled(true);
+    }
 
     public Player getPlayer() {
         return player;

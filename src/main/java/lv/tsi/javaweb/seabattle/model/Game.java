@@ -5,6 +5,7 @@ public class Game {
     private Player player2;
     private boolean player1Move = true;
     private boolean finished;
+    private boolean canceled;
 
     public Player getCurrentPlayer() {
         if (player1Move) {
@@ -70,5 +71,13 @@ public class Game {
 
     public boolean isFinished() {
         return finished;
+    }
+
+    public boolean isCanceled() {
+        return canceled;
+    }
+
+    public void setCanceled(boolean canceled) {
+        this.canceled = canceled;
     }
 }
