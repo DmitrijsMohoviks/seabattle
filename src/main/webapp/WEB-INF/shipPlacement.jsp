@@ -28,6 +28,10 @@
         td.SHIP {
             background-color: darkgrey;
         }
+
+        td.HIT {
+            background-color: red;
+        }
     </style>
 </head>
 <body class="w3-display-container container">
@@ -50,8 +54,9 @@
                     <c:forEach var="col" items="A,B,C,D,E,F,G,H,I,J">
                         <c:set var="addr" value="${col}${row}"/>
                         <td class="${myField.getCell(addr)}">
+                            <c:set var="content" value="${myField.getCell(addr)}"/>
                             <input type="checkbox" name="addr"
-                                   value="${addr}" ${myField.hasShip(addr) ? "checked" : ""}>
+                                   value="${addr}" ${content != 'EMPTY' ? "checked" : ""}>
                         </td>
                     </c:forEach>
                 </tr>
