@@ -1,5 +1,6 @@
 package lv.tsi.javaweb.seabattle.controller;
 
+import lv.tsi.javaweb.seabattle.model.CellContent;
 import lv.tsi.javaweb.seabattle.model.Field;
 import lv.tsi.javaweb.seabattle.model.Player;
 import lv.tsi.javaweb.seabattle.model.PlayerGameContext;
@@ -30,7 +31,7 @@ public class ShipPlacementServlet extends HttpServlet {
         f.clear();
         if (addresses != null) {
             for (String a : addresses) {
-                f.setShip(a);
+                f.setCell(a, CellContent.SHIP);
             }
         }
 

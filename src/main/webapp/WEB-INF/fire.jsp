@@ -30,6 +30,10 @@
             background-color: darkgrey;
         }
         td.HIT {
+            background-color: yellow;
+        }
+
+        td.KILL {
             background-color: red;
         }
         td.MISS {

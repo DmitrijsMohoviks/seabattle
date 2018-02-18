@@ -63,9 +63,15 @@ public class Game {
     public void fire(String addr) {
         Field oppositeMyField = getOppositePlayer().getMyField();
         CellContent c = oppositeMyField.getCell(addr);
+        Field currentEnemyField = getCurrentPlayer().getEnemyField();
         if (c == CellContent.SHIP) {
-            oppositeMyField.setCell(addr, CellContent.HIT);
-            getCurrentPlayer().getEnemyField().setCell(addr, CellContent.HIT);
+            Field.Ship ship = oppositeMyField.getShip(addr);
+            ship.hit(addr);
+            if (ship.isKilled()) {
+                ship.markKill(currentEnemyField);
+            } else {
+                currentEnemyField.setCell(addr, CellContent.HIT);
+            }
             if (!oppositeMyField.hasMoreShips()) {
                 finished = true;
                 getCurrentPlayer().setWinner(true);
@@ -74,7 +80,7 @@ public class Game {
         }
         if (c == CellContent.EMPTY) {
             oppositeMyField.setCell(addr, CellContent.MISS);
-            getCurrentPlayer().getEnemyField().setCell(addr, CellContent.MISS);
+            currentEnemyField.setCell(addr, CellContent.MISS);
         }
         player1Move = !player1Move;
     }

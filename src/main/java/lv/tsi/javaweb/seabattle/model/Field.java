@@ -8,19 +8,16 @@ import java.util.*;
  * @since 1.0
  */
 public class Field {
-    private Map<String, CellContent> content = new HashMap<>();
+    private final Map<String, CellContent> content = new HashMap<>();
+    private final Map<String, Ship> contentShips = new HashMap<>();
     private boolean invalid;
 
     public boolean hasMoreShips() {
         return content.containsValue(CellContent.SHIP);
     }
 
-    public void setShip(String addr) {
-        content.put(addr, CellContent.SHIP);
-    }
-
-    public boolean hasShip(String addr) {
-        return content.get(addr) == CellContent.SHIP;
+    public Ship getShip(String addr) {
+        return contentShips.get(addr);
     }
 
     public CellContent getCell(String addr) {
@@ -29,6 +26,7 @@ public class Field {
 
     public void clear() {
         content.clear();
+        contentShips.clear();
         invalid = false;
     }
 
@@ -52,27 +50,27 @@ public class Field {
     }
 
     private Set<Ship> collectConnectedCells() {
-        Map<String, Ship> ships = new HashMap<>();
+        contentShips.clear();
         for (int row = 1; row <= 10; row++) {
             for (char col = 'A'; col <= 'J'; col++) {
                 String addr = "" + col + row;
-                if (!hasShip(addr)) {
+                if (getCell(addr) != CellContent.SHIP) {
                     continue;
                 }
                 String leftAddr = "" + (char) (col - 1) + row;
-                Ship ship = ships.get(leftAddr);
+                Ship ship = contentShips.get(leftAddr);
                 if (ship == null) {
                     String topAddr = "" + col + (row - 1);
-                    ship = ships.get(topAddr);
+                    ship = contentShips.get(topAddr);
                 }
                 if (ship == null) {
                     ship = new Ship();
                 }
                 ship.add(addr);
-                ships.put(addr, ship);
+                contentShips.put(addr, ship);
             }
         }
-        return new HashSet<>(ships.values());
+        return new HashSet<>(contentShips.values());
     }
 
     public boolean isInvalid() {
@@ -83,29 +81,35 @@ public class Field {
         content.put(addr, value);
     }
 
-    private class Ship {
-        Set<String> addresses = new HashSet<>();
-        boolean invalid;
+    public class Ship {
+        private Set<String> addresses = new HashSet<>();
+        private int hitCount;
+        private boolean invalid;
+        private boolean killed;
 
-        void add(String addr) {
+        private void add(String addr) {
             addresses.add(addr);
         }
 
-        int size() {
+        private int size() {
             return addresses.size();
         }
 
-        void markInvalid() {
+        private void markInvalid() {
             for (String addr : addresses) {
                 content.put(addr, CellContent.HIT);
             }
         }
 
-        boolean isInvalid() {
+        private boolean isInvalid() {
             return invalid;
         }
 
-        void validate() {
+        public boolean isKilled() {
+            return killed;
+        }
+
+        private void validate() {
             // check diagonals
             for (String addr : addresses) {
                 char col = addr.charAt(0);
@@ -121,6 +125,24 @@ public class Field {
                     invalid = true;
                     return;
                 }
+            }
+        }
+
+        public void hit(String addr) {
+            if (!addresses.contains(addr) || getCell(addr) != CellContent.SHIP) {
+                return;
+            }
+            setCell(addr, CellContent.HIT);
+            hitCount++;
+            if (hitCount == addresses.size()) {
+                killed = true;
+                markKill(Field.this);
+            }
+        }
+
+        public void markKill(Field field) {
+            for (String addr : addresses) {
+                field.setCell(addr, CellContent.KILL);
             }
         }
     }
