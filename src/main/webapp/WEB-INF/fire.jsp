@@ -99,6 +99,9 @@
 <div>
         <input class="w3-button" type="submit" value="Fire!">
 </div>
+<div>
+    <a class="w3-button w3-small w3-brown w3-round" style="float: right;" href="cancel">Quit the game!</a>
+</div>
     </form>
 </div>
 
